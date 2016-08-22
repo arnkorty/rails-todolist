@@ -51,7 +51,8 @@ CREATE TABLE accounts (
     last_sign_in_ip inet,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    uncompleted_count integer DEFAULT 0
+    uncompleted_count integer DEFAULT 0,
+    deleted_at timestamp without time zone
 );
 
 
@@ -203,6 +204,13 @@ ALTER TABLE ONLY todos
 
 
 --
+-- Name: index_accounts_on_deleted_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_accounts_on_deleted_at ON accounts USING btree (deleted_at);
+
+
+--
 -- Name: index_accounts_on_email; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -251,6 +259,6 @@ ALTER TABLE ONLY todos
 
 SET search_path TO "$user", public;
 
-INSERT INTO schema_migrations (version) VALUES ('20160822123721'), ('20160822131650'), ('20160822154405');
+INSERT INTO schema_migrations (version) VALUES ('20160822133721'), ('20160822141650'), ('20160822155405'), ('20160822192858');
 
 
