@@ -1,0 +1,125 @@
+# Place all the behaviors and hooks related to the matching controller here.
+# All this logic will automatically be available in application.js.
+# You can use CoffeeScript in this file: http://coffeescript.org/
+class Todos
+  constructor: ->
+    this.bindCreate()
+    this.bindDestroy()
+    this.bindUpdate()
+    this.bindToggle()
+    this.bindMove()
+
+  bindCreate: ->
+    that = @
+    $("#new-todo").keypress (e)->
+      if (e.keyCode == 13 || e.which == 13) && $(@).val().length > 0
+        ele = @
+        that._create $(@).val(), (data)->
+          ele.value = ''
+          $('#todo-list').prepend(data.html)
+
+  bindDestroy: ->
+    that = @
+    $("#todoapp").on 'click', '.destroy', ->
+      li = $(@).closest('li')
+      id = li.data('id')
+      that._destroy id, ->
+        li.remove()
+
+  bindUpdate: ->
+    that = @
+    $("#todoapp").on 'dbclick', '#todo-list li', ->
+      li = $(@)
+      li.parent().find('li').removeClass('editing')
+      li.addClass('editing')
+
+    updateCallback = (data)->
+      $("#todo-#{data.id}").replaceWith(data.html)
+
+    $("#todoapp").on 'keypress', '#todo-list li', (e)->
+      if (e.keyCode == 13 || e.which == 13)
+        input = $(@).find('input.edit')
+        if input.data('text') != input.val()
+          that._update input.data('id'), input.val(), updateCallback
+    $("#todoapp").on 'change', '#todo-list input.edit', ->
+      input = $(@)
+      that._update input.data('id'), input.val(), updateCallback
+
+
+  bindToggle: ->
+    that = @
+    $('#todoapp').on 'click', '.toggle-all', ->
+      ids = []
+      ele = $(@)
+      $('#todoapp .toggle').prop 'checked', $(@).prop('checked')
+      $('#todoapp #todo-list li').map ->
+        ids.push $(@).data('id')
+      that._toggle_completed ids, ele.prop('checked'), (data)->
+        $('#todoapp #todo-list li').each (i, item)->
+          if ele.prop('checked')
+            $(item).addClass('completed')
+          else
+            $(item).removeClass('completed')
+        $('.todo-count strong').html data.uncompleted_count
+
+    $('#todoapp').on 'click', '.toggle', (data)->
+      ele = $(@).closest('li')
+      that._toggle_completed [ele.data('id')], ele.prop('checked'), (data)->
+        ele.toggleClass('completed')
+        $('.todo-count strong').html data.uncompleted_count
+
+
+  bindMove: ->
+    dragId = null
+    Id = null
+    that = @
+    $('#todoapp').on 'drop', '#todo-list li', (e)->
+      ele = $(@)
+      that._move_up Id, ele.data('id'), ->
+        ele.before($("##{dragId}"))
+        ele.removeClass('dragover')
+    $('#todoapp').on 'dragstart', '#todo-list li', (e)->
+      dragId = e.target.id
+      Id = $(@).data('id')
+    $('#todoapp').on 'dragenter', '#todo-list li', (e)->
+      $(@).addClass('dragover')
+    $('#todoapp').on 'dragover', '#todo-list li', (e)->
+      e.preventDefault()
+      $(@).addClass('dragover')
+    $('#todoapp').on 'dragleave', '#todo-list li', (e)->
+      $(@).removeClass('dragover')
+  _create: (text, callback) ->
+    $.post
+      url: '<%= Rails.application.routes.url_helpers.todos_path %>'
+      data: {todo:{text: text}}
+      dataType: 'json'
+      success: callback
+  _destroy: (id, callback) ->
+    $.ajax
+      url: "<%= Rails.application.routes.url_helpers.todos_path %>/#{id}"
+      method: 'delete'
+      dataType: 'json'
+    .done(callback)
+  _update: (id, text, callback) ->
+    $.ajax
+      url: "<%= Rails.application.routes.url_helpers.todos_path %>/#{id}"
+      method: 'put'
+      dataType: 'json'
+      data: {todo: {text: text}}
+    .done(callback)
+  _move_up: (id, target_id, callback) ->
+    $.ajax
+      url: "<%= Rails.application.routes.url_helpers.move_todos_path %>"
+      method: 'put'
+      data: {id: id, target_id: target_id}
+    .done(callback)
+  _toggle_completed: (ids, completed, callback) ->
+      $.ajax
+        url: "<%= Rails.application.routes.url_helpers.toggle_todos_path %>"
+        method: 'put'
+        data: {ids: ids, completed: completed}
+      .done(callback)
+
+
+$(document).on 'turbolinks:load', ->
+  new Todos()

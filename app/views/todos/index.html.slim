@@ -1,0 +1,17 @@
+section#todoapp
+  .header
+    .title
+      | Todos list
+    input#new-todo.new-todo autofocus="" placeholder=("What needs to be done?") /
+  .main
+    input.toggle-all type="checkbox"
+    ul#todo-list
+      = render partial: 'todo', collection: @todos
+  = paginate @todos, id: 'paginate'
+  .footer
+    span.todo-count
+      strong =current_account.uncompleted_count
+      | &nbsp;&nbsp;item left
+    ul.filters
+      = render_filter_links
+    / = button_to 'Clear All completed', '', data: {confirm: 'Are you sure?'}, class: 'btn btn-danger btn-xs clear-completed'

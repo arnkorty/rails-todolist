@@ -1,0 +1,278 @@
+// Place all the styles related to the todos controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.turbolinks-progress-bar
+  height: 5px
+  background-color: green
+.navbar-brand
+  font-family: cursive
+#main_container
+  #error_explanation
+    h2
+      font-size: 1.6em
+    ul li
+      color: red
+  .view-container
+    main
+      max-width: 500px
+      margin: 50px auto
+      padding: 10px
+      position: absolute
+      top: 15%
+      left: 0
+      right: 0
+      header
+        .title
+          font-size: 2.4em
+          color: rgba(105, 87, 87, 0.8)
+          text-align: center
+          font-family: cursive
+          margin-bottom: 8px
+      form
+        .field:not(.remember-check_box)
+          margin-bottom: 5px
+          input
+            height: 50px
+            line-height: 36px
+        .remember-check_box
+          margin: 15px 0
+          label
+            margin-left: 8px
+        .links
+          margin-top: 25px
+          color: darkgray
+          a
+            color: darkgray
+            margin: 5px
+            display: block
+            text-align: center
+            &:hover
+              text-decoration: none
+
+#todoapp
+  border: 1px solid #e3e3e3
+  background: #fff
+  position: relative
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1)
+  input
+    &::-webkit-input-placeholder, &::-moz-placeholder, &::input-placeholder
+      font-style: italic
+      font-weight: 300
+      color: #e6e6e6
+    &:focus
+      outline: none
+  input[type="checkbox"]:focus,button
+    text-decoration: none
+    outline: none
+  .header
+    .title
+      position: absolute
+      top: -100px
+      width: 100%
+      font-size: 4em !important
+      font-weight: 100
+      font-family: cursive
+      text-align: center
+      color: rgba(105, 87, 87, 0.8)
+      -webkit-text-rendering: optimizeLegibility
+      -moz-text-rendering: optimizeLegibility
+      text-rendering: optimizeLegibility
+
+  .new-todo, .edit
+    position: relative
+    margin: 0
+    width: 100%
+    font-size: 24px
+    font-family: inherit
+    font-weight: inherit
+    line-height: 1.4em
+    border: 0
+    color: inherit
+    padding: 6px
+    border: 1px solid #999
+    box-shadow: inset 0 -1px 5px 0 rgba(0, 0, 0, 0.2)
+    box-sizing: border-box
+    -webkit-font-smoothing: antialiased
+    -moz-osx-font-smoothing: grayscale
+
+  .new-todo
+    padding: 16px 16px 16px 60px
+    border: none
+    background: rgba(0, 0, 0, 0.003)
+    box-shadow: inset 0 -2px 1px rgba(0, 0, 0, 0.03)
+
+  .main
+    position: relative
+    z-index: 2
+    border-top: 1px solid #e6e6e6
+
+  label[for='toggle-all']
+    display: none
+
+
+  .toggle,.toggle-all
+    text-align: center
+    width: 40px
+    /* auto, since non-WebKit browsers doesn't support input styling
+    margin: auto 0
+    border: none
+    /* Mobile Safari
+    -webkit-appearance: none
+    appearance: none
+    &:after
+      content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="-10 -18 100 135"><circle cx="50" cy="50" r="50" fill="none" stroke="#ededed" stroke-width="3"/></svg>')
+    &:checked:after
+      content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="-10 -18 100 135"><circle cx="50" cy="50" r="50" fill="none" stroke="#bddad5" stroke-width="3"/><path fill="#5dc2af" d="M72 25L42 71 27 56l-4 4 20 20 34-52z"/></svg>')
+  .toggle
+    height: auto
+    position: absolute
+    top: 0
+    bottom: 0
+  .toggle-all
+    position: absolute
+    top: -55px
+  #todo-list
+    margin: 0
+    padding: 0
+    list-style: none
+    li
+      &.dragover
+        padding-top: 50px
+        .toggle
+          top: 35px
+      position: relative
+      font-size: 24px
+      border-bottom: 1px solid #ededed
+      &:last-child
+        border-bottom: none
+      &.editing
+        border-bottom: none
+        padding: 0
+        .edit
+          display: block
+          width: 100%
+          padding: 12px 16px
+          margin: 0
+          border: 0
+        .view
+          display: none
+
+      label
+        word-break: break-all
+        padding: 15px 60px 15px 15px
+        margin-left: 45px
+        display: block
+        line-height: 1.2
+        transition: color 0.4s
+        font-weight: 200
+      &.completed label
+        color: #d9d9d9
+        text-decoration: line-through
+      .destroy
+        display: none
+        position: absolute
+        border: none
+        background: none
+        top: 0
+        right: 10px
+        bottom: 0
+        width: 40px
+        height: 40px
+        margin: auto 0
+        font-size: 30px
+        color: #cc9a9a
+        margin-bottom: 11px
+        transition: color 0.2s ease-out
+        &:hover
+          color: #af5b5e
+        &:after
+          content: '×'
+      &:hover .destroy
+        display: block
+      .edit
+        display: none
+      &.editing:last-child
+        margin-bottom: -1px
+
+  .footer
+    color: #777
+    padding: 10px 15px
+    height: 44px
+    text-align: center
+    border-top: 1px solid #e6e6e6
+    &:before
+      content: ''
+      position: absolute
+      right: 0
+      bottom: 0
+      left: 0
+      height: 50px
+      overflow: hidden
+      box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2), 0 8px 0 -3px #f6f6f6, 0 9px 1px -3px rgba(0, 0, 0, 0.2), 0 16px 0 -6px #f6f6f6, 0 17px 2px -6px rgba(0, 0, 0, 0.2)
+
+  .todo-count
+    float: left
+    text-align: left
+    strong
+      font-weight: 300
+
+  .filters
+    margin: 0
+    padding: 0
+    list-style: none
+    position: absolute
+    right: 0
+    left: 0
+    li
+      display: inline
+      a
+        color: inherit
+        margin: 3px
+        padding: 3px 7px
+        text-decoration: none
+        border: 1px solid transparent
+        border-radius: 3px
+        &:hover
+          border-color: rgba(175, 47, 47, 0.1)
+        &.selected
+          border-color: rgba(175, 47, 47, 0.2)
+
+  .clear-completed
+    float: right
+    position: relative
+    line-height: 20px
+
+  .info
+    margin: 65px auto 0
+    color: #bfbfbf
+    font-size: 10px
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5)
+    text-align: center
+    p
+      line-height: 1
+    a
+      color: inherit
+      text-decoration: none
+      font-weight: 400
+      &:hover
+        text-decoration: underline
+  .pagination
+    padding: 5px
+    margin: 0
+    border-top: 1px solid #e6e6e6
+    text-align: center
+    display: block
+
+  /*
+   *	Hack to remove background from Mobile Safari.
+   *	Can't use it globally since it destroys checkboxes in Firefox
+  @media screen and (-webkit-min-device-pixel-ratio: 0)
+    .toggle-all,#todo-list li .toggle
+      background: none
+      height: 40px
+
+  @media (max-width: 430px)
+    .footer
+      height: 70px
+    .filters
+      bottom: 8px

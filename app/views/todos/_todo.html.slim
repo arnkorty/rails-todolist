@@ -1,0 +1,6 @@
+li draggable="true" class="#{todo.completed ? 'completed' : nil}" data-id=todo.id id="todo-#{todo.id}"
+  .view
+    input.toggle checked=todo.completed type="checkbox"
+    label = todo.text
+    button.destroy
+  input.edit value=todo.text data-id=todo.id data-text=todo.text

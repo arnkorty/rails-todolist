@@ -1,0 +1,11 @@
+header
+  .title
+    | Todos List
+= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
+  = devise_error_messages!
+  .field
+    = f.email_field :email, autofocus: true, class: 'form-control', required: true
+  .field
+    = f.submit "Send me reset password instructions", class: 'btn btn-primary btn-block'
+  .links
+    = render "devise/shared/links"

@@ -1,0 +1,26 @@
+doctype html
+html
+  head
+    meta charset='utf-8'
+    meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+    meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"
+    meta name="MobileOptimized" content="320"
+    meta name="HandheldFriendly" content="True"
+    meta http-equiv="cleartype" content="on"
+    meta name="renderer" content="webkit"
+    = csrf_meta_tags
+    title
+      | Rails5Todolist
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+    - if content_for?(:head)
+      = yield(:head)
+  body
+    main#main_container
+      - if content_for?(:header)
+        = yield(:header)
+      - if account_signed_in?
+        = render 'layouts/navbar'
+      .view-container class="#{controller_name} #{action_name}"
+        main
+          = yield

@@ -1,0 +1,18 @@
+p#notice = notice
+
+p
+  strong Text:
+  = @todo.text
+p
+  strong Completed:
+  = @todo.completed
+p
+  strong Sort:
+  = @todo.sort
+p
+  strong Account:
+  = @todo.account
+
+= link_to 'Edit', edit_todo_path(@todo)
+'|
+= link_to 'Back', todos_path
