@@ -1,5 +1,10 @@
- source 'https://rubygems.org'
- ruby "2.3.1"
+if ENV['heroku']
+  source 'https://rubygems.org'
+else
+  source 'https://gems.ruby-china.org'
+end
+
+ruby "2.3.1"
 
 
 
