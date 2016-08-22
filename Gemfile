@@ -1,8 +1,4 @@
-if ENV['heroku']
   source 'https://rubygems.org'
-else
-  source 'https://gems.ruby-china.org'
-end
 
 
 
