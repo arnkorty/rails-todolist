@@ -17,14 +17,16 @@ class Todos
         that._create $(@).val(), (data)->
           ele.value = ''
           $('#todo-list').prepend(data.html)
+          $('.todo-count strong').html data.uncompleted_count
 
   bindDestroy: ->
     that = @
     $("#todoapp").on 'click', '.destroy', ->
       li = $(@).closest('li')
       id = li.data('id')
-      that._destroy id, ->
+      that._destroy id, (data)->
         li.remove()
+        $('.todo-count strong').html data.uncompleted_count
 
   bindUpdate: ->
     that = @

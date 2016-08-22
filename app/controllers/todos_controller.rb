@@ -77,7 +77,7 @@ class TodosController < ApplicationController
     @todo.destroy
     respond_to do |format|
       format.html { redirect_to todos_url, notice: 'Todo was successfully destroyed.' }
-      format.json { head :no_content }
+      format.json { render json: {uncompleted_count: current_account.uncompleted_count} }
     end
   end
 

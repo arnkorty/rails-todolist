@@ -3,13 +3,14 @@ class Todo < ApplicationRecord
   default_scope -> { order(sort: :desc) }
 
   acts_as_paranoid
-  paginates_per 10
+  paginates_per 8
 
   belongs_to :account
 
   validates :text, presence: true
 
   after_create :auto_increment_completed_count
+  after_destroy :auto_decrement_completed_count
 
   scope :uncompleted, ->{ where(completed: false) }
   scope :completed, ->{ where(completed: true) }
@@ -46,5 +47,10 @@ class Todo < ApplicationRecord
   private
   def auto_increment_completed_count
     account.increment! :uncompleted_count
+  end
+  def auto_decrement_completed_count
+    unless self.completed?
+      account.decrement! :uncompleted_count
+    end
   end
 end
