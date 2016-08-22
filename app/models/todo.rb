@@ -12,7 +12,7 @@ class Todo < ApplicationRecord
   after_create :auto_increment_completed_count
   after_destroy :auto_decrement_completed_count
 
-  scope :uncompleted, ->{ where(completed: false) }
+  scope :active, ->{ where(completed: false) }
   scope :completed, ->{ where(completed: true) }
 
   class << self

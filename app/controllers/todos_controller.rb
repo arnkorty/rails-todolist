@@ -7,7 +7,7 @@ class TodosController < ApplicationController
     @todos = current_account.todos.page params[:page]
     if String === params[:state]
       if params[:state].downcase == 'active'
-        @todos = @todos.uncompleted
+        @todos = @todos.active
       elsif params[:state].downcase == 'completed'
         @todos = @todos.completed
       end

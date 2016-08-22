@@ -66,7 +66,7 @@ class Todos
 
     $('#todoapp').on 'click', '.toggle', (data)->
       ele = $(@).closest('li')
-      that._toggle_completed [ele.data('id')], ele.prop('checked'), (data)->
+      that._toggle_completed [ele.data('id')], $(@).prop('checked'), (data)->
         ele.toggleClass('completed')
         $('.todo-count strong').html data.uncompleted_count
 

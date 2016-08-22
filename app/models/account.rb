@@ -7,6 +7,6 @@ class Account < ApplicationRecord
   has_many :todos
 
   def uncompleted_count_fresh!
-    update! uncompleted_count: todos.uncompleted.count
+    update! uncompleted_count: todos.active.count
   end
 end
