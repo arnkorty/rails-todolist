@@ -67,9 +67,8 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'slim-rails'
-gem 'bourbon'
+#gem 'bourbon'
 gem 'bootstrap-sass'
 gem 'devise'
 gem 'kaminari'
 gem "paranoia", github: "rubysherpas/paranoia", branch: "rails5"
-gem 'rails_12factor', group: :production
